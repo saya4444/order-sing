@@ -9,7 +9,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       t.string  :name                   , null: false
       t.date    :birthdate              , null: false
       t.integer :vocal_range_id
-      t.boolean :direct_messages_enabled, null: false, default: false
+      t.boolean :direct_messages_enabled, null: false, default: true
       t.text    :profile
 
       ## Recoverable
