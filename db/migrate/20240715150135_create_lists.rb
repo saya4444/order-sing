@@ -10,7 +10,7 @@ class CreateLists < ActiveRecord::Migration[7.0]
       t.string     :singer
       t.string     :link
       t.string     :remarks
-      t.references :user_id     , null: false, foreign_key: true
+      t.references :user        , null: false, foreign_key: true
       t.boolean    :public      , null: false, default: false
 
 
