@@ -20,9 +20,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :birthdate, :vocal_range_id, :profile, :image])
   end
 
-
-
-
-
-
 end

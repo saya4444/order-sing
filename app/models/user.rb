@@ -4,10 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-        # Active Storage の設定
+        # Active Storageの設定
         has_one_attached :image
 
-        # ActiveHash の設定
+        # ActiveHashの設定
         belongs_to :vocal_range, class_name: 'VocalRange', optional: true
 
         # バリデーション

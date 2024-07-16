@@ -1,6 +1,6 @@
 class List < ApplicationRecord
 
-  # ActiveHash の設定
+  # ActiveHashの設定
   belongs_to :key, class_name: 'Key', optional: true
 
   # バリデーション
