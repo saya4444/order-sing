@@ -33,7 +33,7 @@
 
   <div class="field">
     <%= f.label :vocal_range_id, "Vocal Range" %><br />
-    <%= f.collection_select :vocal_range_id, VocalRange.all, :id, :name %>
+    <%= f.collection_select :vocal_range_id, VocalRange.all, :id, :name, include_blank: true %>
   </div>
 
   <div class="field">
