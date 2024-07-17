@@ -13,7 +13,7 @@ class User < ApplicationRecord
         # バリデーション
         validates :password        , format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
         validates :name            , presence: true
-        validates :birthday        , presence: true
+        validates :birthdate        , presence: true
 
         # アソシエーション
         has_many :lists    , dependent: :destroy
