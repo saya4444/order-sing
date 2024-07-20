@@ -77,4 +77,4 @@ end
 
 gem 'devise'
 gem 'active_hash'
-
+gem 'rails-i18n'
