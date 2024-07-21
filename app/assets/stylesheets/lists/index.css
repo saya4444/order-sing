@@ -25,6 +25,7 @@
   text-align: center;
   border: 1px solid #ddd; /* セルの境界線 */
   background-color: #f9f9f9; /* セルの背景色 */
+  word-wrap: break-word; /* 内容が長い場合に折り返し */
 }
 
 /* ヘッダーの背景色とフォントを太字にする */

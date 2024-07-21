@@ -10,33 +10,60 @@
 </div>
 
 <div class="content">
-  <% if list.present? %>
-    <% if list.songs.any? %>
-      <div class="songs_table">
-        <div class="songs_table_header">
-          <div>曲名</div>
-          <div>読み仮名</div>
-          <div>キー</div>
-          <div>歌手名</div>
-          <div>リンク</div>
-          <div>備考</div>
-        </div>
+  <div class="songs_table">
+    <!-- 項目名 -->
+    <div class="songs_table_header">
+      <div>曲名</div>
+      <div>読み仮名</div>
+      <div>キー</div>
+      <div>歌手名</div>
+      <div>リンク</div>
+      <div>備考</div>
+    </div>
+
+    <% if list.present? %>
+      <% if list.songs.any? %>
         <% list.songs.each do |song| %>
           <div class="songs_table_row">
             <div><%= song.song_title %></div>
             <div><%= song.reading %></div>
             <div><%= song.key ? song.key.name : '未設定' %></div>
             <div><%= song.singer %></div>
-            <div><%= song.link %></div>
+            <div>
+              <% if song.link.present? %>
+                <a href="<%= song.link %>" target="_blank" rel="noopener noreferrer">リンクを開く</a>
+              <% else %>
+                &nbsp; <!-- 空白でリンクなしを表示 -->
+              <% end %>
+            </div>
             <div><%= song.remarks %></div>
           </div>
         <% end %>
-      </div>
+      <% else %>
+        <!-- 曲が1曲もない場合の空行を表示 -->
+        <% 3.times do %>
+          <div class="songs_table_row">
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+          </div>
+        <% end %>
+      <% end %>
     <% else %>
-      <p>このリストには曲がありません。</p>
+      <!-- リストが選択されていない場合 -->
+      <% 3.times do %>
+        <div class="songs_table_row">
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+        </div>
+      <% end %>
     <% end %>
-  <% else %>
-    <p>リストの詳細情報が選択されていません。</p>
-  <% end %>
+  </div>
 </div>
-
