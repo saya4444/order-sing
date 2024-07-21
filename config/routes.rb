@@ -1,7 +1,17 @@
-Rails.application.routes.draw do
-  devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+# config/routes.rb
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+Rails.application.routes.draw do
+  devise_for :users, controllers: { registrations: 'users/registrations', passwords: 'users/passwords' }
+
+  # ログイン時 トップページを開くとログイン中のユーザーのリスト一覧ページへ
+  authenticated :user do
+    root 'lists#index', as: :authenticated_root
+  end
+
+  # 未ログイン時 トップページを開くとログイン画面へ
+  unauthenticated do
+    root to: redirect('/users/sign_in'), as: :unauthenticated_root
+  end
+
+  resources :lists
 end

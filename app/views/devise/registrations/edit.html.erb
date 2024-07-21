@@ -1,0 +1,58 @@
+<!-- app/views/devise/registrations/edit.html.erb -->
+<h2>設定</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :name, "ユーザー名" %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :メールアドレス %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :current_password, "現在のパスワード" %><span class="required"> ※必須</span><br />
+    <%= f.password_field :current_password, autocomplete: "current-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, "新しいパスワード" %><br />
+    <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %>文字以上の半角英数)</em><br />
+    <% end %>
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, "新しいパスワード（確認用）"  %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :vocal_range_id, "声域" %><br />
+    <%= f.collection_select :vocal_range_id, VocalRange.all, :id, :name, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image, "プロフィール画像" %><br />
+    <% if resource.image.attached? %>
+      <%= image_tag resource.image, alt: "プロフィール画像", style: "max-width: 200px;" %><br />
+    <% end %>
+    <%= f.file_field :image %>
+  </div>
+
+<div class="field">
+  <%= f.check_box :direct_messages_enabled %>
+  <%= f.label :direct_messages_enabled, "ダイレクトメッセージを受け取る" %>
+</div>
+
+  <div class="actions">
+    <%= f.submit "保存" %>
+  </div>
+<% end %>
+
+<%= button_to 'アカウントを削除する', registration_path(resource_name), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
