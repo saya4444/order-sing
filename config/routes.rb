@@ -14,4 +14,7 @@ Rails.application.routes.draw do
   end
 
   resources :lists
+
+  resources :users, only: [:show]
+
 end

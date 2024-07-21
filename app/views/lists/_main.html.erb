@@ -1,7 +1,18 @@
 <div class="main_header">
-  <div class="list_title">選択リスト名</div>
+  <div class="list_title">
+    <%= list.present? ? list.list_title : "リストを選択してください" %>
+  </div>
 </div>
 
 <div class="content">
-  リスト内容一覧
+  <% if list.present? %>
+    <p><strong>曲名:</strong> <%= list.song_title %></p>
+    <p><strong>読み仮名:</strong> <%= list.reading %></p>
+    <p><strong>キー:</strong> <%= list.key ? list.key.name : '未設定' %></p>
+    <p><strong>歌手名:</strong> <%= list.singer %></p>
+    <p><strong>リンク:</strong> <%= list.link %></p>
+    <p><strong>備考:</strong> <%= list.remarks %></p>
+  <% else %>
+    <p>リストの詳細情報が選択されていません。</p>
+  <% end %>
 </div>
