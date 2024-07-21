@@ -46,6 +46,11 @@
     <%= f.file_field :image %>
   </div>
 
+  <div class="field">
+    <%= f.check_box :direct_messages_enabled, {}, true, false %>
+    <%= f.label :direct_messages_enabled, "ダイレクトメッセージを受け取る" %>
+  </div>
+
   <div class="actions">
     <%= f.submit "新規登録" %>
   </div>

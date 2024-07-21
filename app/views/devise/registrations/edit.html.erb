@@ -15,7 +15,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :current_password, "現在のパスワード" %><br />
+    <%= f.label :current_password, "現在のパスワード" %><span class="required"> ※必須</span><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
@@ -31,6 +31,24 @@
     <%= f.label :password_confirmation, "新しいパスワード（確認用）"  %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
+
+  <div class="field">
+    <%= f.label :vocal_range_id, "声域" %><br />
+    <%= f.collection_select :vocal_range_id, VocalRange.all, :id, :name, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image, "プロフィール画像" %><br />
+    <% if resource.image.attached? %>
+      <%= image_tag resource.image, alt: "プロフィール画像", style: "max-width: 200px;" %><br />
+    <% end %>
+    <%= f.file_field :image %>
+  </div>
+
+<div class="field">
+  <%= f.check_box :direct_messages_enabled %>
+  <%= f.label :direct_messages_enabled, "ダイレクトメッセージを受け取る" %>
+</div>
 
   <div class="actions">
     <%= f.submit "保存" %>
