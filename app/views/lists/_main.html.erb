@@ -9,53 +9,57 @@
   <% end %>
 </div>
 
+<!-- 項目名 -->
+<div class="songs_table_header_wrapper">
+  <div class="songs_table_header">
+    <div>曲名</div>
+    <div>読み仮名</div>
+    <div>キー</div>
+    <div>歌手名</div>
+    <div>リンク</div>
+    <div>備考</div>
+  </div>
+</div>
+
 <div class="content">
   <div class="songs_table">
-    <!-- 項目名 -->
-    <div class="songs_table_header">
-      <div>曲名</div>
-      <div>読み仮名</div>
-      <div>キー</div>
-      <div>歌手名</div>
-      <div>リンク</div>
-      <div>備考</div>
-    </div>
-
     <% if list.present? %>
-      <% if list.songs.any? %>
-        <% list.songs.each do |song| %>
-          <div class="songs_table_row">
-            <div><%= song.song_title %></div>
-            <div><%= song.reading %></div>
-            <div><%= song.key ? song.key.name : '未設定' %></div>
-            <div><%= song.singer %></div>
-            <div>
-              <% if song.link.present? %>
-                <a href="<%= song.link %>" target="_blank" rel="noopener noreferrer">リンクを開く</a>
-              <% else %>
-                &nbsp; <!-- 空白でリンクなしを表示 -->
-              <% end %>
-            </div>
-            <div><%= song.remarks %></div>
-          </div>
-        <% end %>
-      <% else %>
-        <!-- 曲が1曲もない場合の空行を表示 -->
-        <% 3.times do %>
-          <div class="songs_table_row">
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-          </div>
-        <% end %>
-      <% end %>
-    <% else %>
-      <!-- リストが選択されていない場合 -->
-      <% 3.times do %>
+      <% song_count = list.songs.size %>
+
+      <% # 曲情報を表示 %>
+      <% list.songs.each do |song| %>
         <div class="songs_table_row">
+          <div><%= song.song_title %></div>
+          <div><%= song.reading %></div>
+          <div><%= song.key ? song.key.name : '未設定' %></div>
+          <div><%= song.singer %></div>
+          <div>
+            <% if song.link.present? %>
+              <a href="<%= song.link %>" target="_blank" rel="noopener noreferrer">リンクを開く</a>
+            <% else %>
+              &nbsp;
+            <% end %>
+          </div>
+          <div><%= song.remarks %></div>
+        </div>
+      <% end %>
+
+      <% # 残りの空行を追加 %>
+      <% (200 - song_count).times do %>
+        <div class="songs_table_row empty_row">
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+        </div>
+      <% end %>
+      
+    <% else %>
+      <% # 曲情報がない場合の空行を表示 %>
+      <% 200.times do %>
+        <div class="songs_table_row empty_row">
           <div>&nbsp;</div>
           <div>&nbsp;</div>
           <div>&nbsp;</div>

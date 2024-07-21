@@ -2,10 +2,26 @@
 .content {
   width: 100%;
   padding: 0 40px;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 100px - 40px); /* ヘッダーと固定ヘッダーの高さを引いた値 */
   color: black;
   font-size: 16px;
   overflow: auto;
+}
+
+.songs_table_header_wrapper {
+  position: -webkit-sticky; /* Safari用 */
+  position: sticky;
+  top: 100px; /* ヘッダーの高さ分だけ位置を下げる */
+  background-color: #F8F8FF; /* ヘッダーと同じ背景色 */
+  z-index: 2; /* テーブル内容の上に表示 */
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6列の等幅グリッド */
+  gap: 10px; /* 列間の隙間 */
+  padding: 0; /* パディングをリセット */
+}
+
+.songs_table_header {
+  display: contents; /* テーブルの列として表示 */
 }
 
 .songs_table {
@@ -16,7 +32,7 @@
   border-collapse: collapse; /* テーブルのセル間の隙間をなくす */
 }
 
-.songs_table_header, .songs_table_row {
+.songs_table_row {
   display: contents; /* テーブルの列として表示 */
 }
 
@@ -26,6 +42,7 @@
   border: 1px solid #ddd; /* セルの境界線 */
   background-color: #f9f9f9; /* セルの背景色 */
   word-wrap: break-word; /* 内容が長い場合に折り返し */
+  box-sizing: border-box; /* パディングとボーダーを含む */
 }
 
 /* ヘッダーの背景色とフォントを太字にする */
@@ -34,6 +51,7 @@
   background-color: #f4f4f4;
 }
 
+/* 偶数行と奇数行の背景色 */
 .songs_table_row:nth-child(even) > div {
   background-color: #f9f9f9; /* 偶数行の背景色 */
 }
