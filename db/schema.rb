@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_16_150318) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_21_134826) do
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -83,6 +83,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_16_150318) do
     t.index ["user_id"], name: "index_lists_on_user_id"
   end
 
+  create_table "songs", charset: "utf8", force: :cascade do |t|
+    t.string "song_title", null: false
+    t.string "reading"
+    t.integer "key_id"
+    t.string "singer"
+    t.string "link"
+    t.string "remarks"
+    t.bigint "list_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_songs_on_list_id"
+  end
+
   create_table "tags", charset: "utf8", force: :cascade do |t|
     t.string "tag", null: false
     t.datetime "created_at", null: false
@@ -115,4 +128,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_16_150318) do
   add_foreign_key "list_tags", "lists"
   add_foreign_key "list_tags", "tags"
   add_foreign_key "lists", "users"
+  add_foreign_key "songs", "lists"
 end
