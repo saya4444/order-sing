@@ -1,46 +1,30 @@
 <!-- app/views/devise/registrations/edit.html.erb -->
-<h2>プロフィールの編集</h2>
+<h2>Edit your account</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :name, "ユーザー名" %><br />
-    <%= f.text_field :name %>
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <%= f.label :image, "画像" %><br />
-    <% if resource.image.attached? %>
-      <%= image_tag resource.image, alt: "プロフィール画像", style: "max-width: 200px;" %>
+    <%= f.label :password %><br />
+    <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
     <% end %>
-    <%= f.file_field :image %>
+    <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
 
   <div class="field">
-    <%= f.label :email, "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: resource.email %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :vocal_range_id, "声域" %><br />
-    <%= f.collection_select :vocal_range_id, VocalRange.all, :id, :name, include_blank: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :direct_messages_enabled, "ダイレクトメッセージ" %><br />
-    <%= f.check_box :direct_messages_enabled %> メッセージを受け取る
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "保存する" %>
+    <%= f.submit "Update" %>
   </div>
 <% end %>
 
-<%= link_to 'パスワードを変更する', edit_user_password_path %>
-
-<%= link_to "戻る", :back %>
+<%= render "devise/shared/links" %>
