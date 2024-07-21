@@ -2,17 +2,41 @@
   <div class="list_title">
     <%= list.present? ? list.list_title : "リストを選択してください" %>
   </div>
+  <% if list.present? %>
+    <div class="list_description">
+      <%= list.description.present? ? list.description : "説明がありません" %>
+    </div>
+  <% end %>
 </div>
 
 <div class="content">
   <% if list.present? %>
-    <p><strong>曲名:</strong> <%= list.song_title %></p>
-    <p><strong>読み仮名:</strong> <%= list.reading %></p>
-    <p><strong>キー:</strong> <%= list.key ? list.key.name : '未設定' %></p>
-    <p><strong>歌手名:</strong> <%= list.singer %></p>
-    <p><strong>リンク:</strong> <%= list.link %></p>
-    <p><strong>備考:</strong> <%= list.remarks %></p>
+    <% if list.songs.any? %>
+      <div class="songs_table">
+        <div class="songs_table_header">
+          <div>曲名</div>
+          <div>読み仮名</div>
+          <div>キー</div>
+          <div>歌手名</div>
+          <div>リンク</div>
+          <div>備考</div>
+        </div>
+        <% list.songs.each do |song| %>
+          <div class="songs_table_row">
+            <div><%= song.song_title %></div>
+            <div><%= song.reading %></div>
+            <div><%= song.key ? song.key.name : '未設定' %></div>
+            <div><%= song.singer %></div>
+            <div><%= song.link %></div>
+            <div><%= song.remarks %></div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p>このリストには曲がありません。</p>
+    <% end %>
   <% else %>
     <p>リストの詳細情報が選択されていません。</p>
   <% end %>
 </div>
+

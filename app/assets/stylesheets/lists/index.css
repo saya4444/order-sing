@@ -1,26 +1,67 @@
-.wrapper{
+/* 曲情報テーブルのスタイル */
+.content {
+  width: 100%;
+  padding: 0 40px;
+  height: calc(100vh - 100px);
+  color: black;
+  font-size: 16px;
+  overflow: auto;
+}
+
+.songs_table {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6列の等幅グリッド */
+  gap: 10px; /* 列間の隙間 */
+  border-collapse: collapse; /* テーブルのセル間の隙間をなくす */
+}
+
+.songs_table_header, .songs_table_row {
+  display: contents; /* テーブルの列として表示 */
+}
+
+.songs_table_header > div, .songs_table_row > div {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd; /* セルの境界線 */
+  background-color: #f9f9f9; /* セルの背景色 */
+}
+
+/* ヘッダーの背景色とフォントを太字にする */
+.songs_table_header > div {
+  font-weight: bold;
+  background-color: #f4f4f4;
+}
+
+.songs_table_row:nth-child(even) > div {
+  background-color: #f9f9f9; /* 偶数行の背景色 */
+}
+
+.songs_table_row:nth-child(odd) > div {
+  background-color: #fff; /* 奇数行の背景色 */
+}
+
+/* 基本レイアウト */
+.wrapper {
   height: 100vh;
   width: 100vw;
   display: flex;
 }
 
-
-
-
-.side_bar{
+.side_bar {
   width: 300px;
 }
 
-.side_bar_header{
+.side_bar_header {
   height: 100px;
-  padding: 0px 20px;
+  padding: 0 20px;
   background-color: #DCC2FF;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.name{
+.name {
   line-height: 100px;
 }
 
@@ -39,23 +80,18 @@
   border: 1px solid #6927FF;
 }
 
-
-
-
-
-.list_corner{
+.list_corner {
   height: calc(100vh - 100px);
   background-color: #EAD9FF;
 }
 
-
-.lists{
+.lists {
   width: 100%;
   height: 100%;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   list-style: none;
-  overflow: scroll;
+  overflow: auto;
   scrollbar-color: #DCC2FF #EAD9FF;
 }
 
@@ -71,40 +107,27 @@
   text-decoration: none;
 }
 
-
-
-
-
-
-
-.main{
+.main {
   width: calc(100vw - 300px);
 }
 
-.main_header{
-  padding: 0px 40px;
+.main_header {
+  padding: 0 40px;
   height: 100px;
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: 	#F8F8FF;
+  background-color: #F8F8FF;
 }
 
-.list_title{
-  padding: 36px 0px 0px 0px;
+.list_title {
+  padding: 36px 0 0 0;
   font-size: 18px;
   color: black;
 }
 
-
-
-
-.content{
-  width: 100%;
-  padding: 0px 40px;
-  height: calc(100vh - 100px);
-  color: black;
-  padding-top: 46px;
+.list_description {
+  padding: 20px;
   font-size: 16px;
-  overflow: scroll
+  color: #555;
 }

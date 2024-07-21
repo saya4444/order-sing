@@ -1,7 +1,7 @@
 class CreateSongs < ActiveRecord::Migration[7.0]
   def change
     create_table :songs do |t|
-      t.string     :song_title, null: false
+      t.string     :song_title, null: true
       t.string     :reading
       t.integer    :key_id
       t.string     :singer

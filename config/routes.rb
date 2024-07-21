@@ -13,7 +13,11 @@ Rails.application.routes.draw do
     root to: redirect('/users/sign_in'), as: :unauthenticated_root
   end
 
-  resources :lists
+  resources :lists do
+    resources :songs, only: [:new, :create, :destroy]
+  end
+
+  resources :songs, only: [:index, :show, :edit, :update, :destroy]
 
   resources :users, only: [:show]
 

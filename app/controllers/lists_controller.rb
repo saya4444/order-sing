@@ -1,31 +1,25 @@
 class ListsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_list, only: [:show, :destroy]
 
   def index
     @lists = current_user.lists
-    @selected_list = List.find(params[:id]) if params[:id].present?
+    @selected_list = List.find_by(id: params[:id])
   end
 
   def show
-    @list = List.find(params[:id])
+    @songs = @list.songs
   end
 
-  def new
-    @list = List.new
-  end
-
-  def create
-    @list = current_user.lists.build(list_params)
-    if @list.save
-      redirect_to @list, notice: 'リストが作成されました。'
-    else
-      render :new
-    end
+  def destroy
+    @list.destroy
+    redirect_to lists_path, notice: 'リストが削除されました。'
   end
 
   private
 
-  def list_params
-    params.require(:list).permit(:list_title, :description, :song_title, :reading, :key_id, :singer, :link, :remarks, :public)
+  def set_list
+    @list = List.find_by(id: params[:id])
+    redirect_to lists_path, alert: 'リストが見つかりません' unless @list
   end
 end

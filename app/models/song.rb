@@ -1,10 +1,11 @@
 # app/models/song.rb
 class Song < ApplicationRecord
 
-  # バリデーション
-  validates :song_title, presence: true
+  # ActiveHashの設定
+  def key
+    Key.find_by(id: key_id)
+  end
 
-  # アソシエーション
   belongs_to :list
 
 end
