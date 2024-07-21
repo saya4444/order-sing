@@ -18,3 +18,5 @@ class Key < ActiveHash::Base
   include ActiveHash::Associations
   has_many :lists
 end
+
+#キー設定

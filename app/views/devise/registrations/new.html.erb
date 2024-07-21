@@ -1,0 +1,59 @@
+<h2>新規登録</h2>
+<!-- 新規登録画面 -->
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :ユーザー名 %><span class="required"> ※必須</span><br />
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :メールアドレス %><span class="required"> ※必須</span><br />
+    <%= f.email_field :email, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, "パスワード" %><span class="required"> ※必須</span><br />
+    <%= f.password_field :password, autocomplete: "new-password" %><br />
+    <% if @minimum_password_length %>
+      <em>※ <%= @minimum_password_length %>文字以上の半角英数</em>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :パスワード（確認用） %><span class="required"> ※必須</span><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :生年月日%><span class="required"> ※必須</span><br />
+    <%= f.date_select :birthdate, start_year: Date.today.year - 100, end_year: Date.today.year %>
+  </div>
+
+  <div class="field">
+    <%= f.label :vocal_range_id, "声域" %><br />
+    <%= f.collection_select :vocal_range_id, VocalRange.all, :id, :name, { include_blank: "選択してください" } %>
+  </div>
+
+  <div class="field">
+    <%= f.label :プロフィール %><br />
+    <%= f.text_area :profile %>
+  </div>
+
+  <div class="field">
+    <%= f.label :画像 %><br />
+    <%= f.file_field :image %>
+  </div>
+
+  <div class="field">
+    <%= f.check_box :direct_messages_enabled, {}, true, false %>
+    <%= f.label :direct_messages_enabled, "ダイレクトメッセージを受け取る" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "新規登録" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>

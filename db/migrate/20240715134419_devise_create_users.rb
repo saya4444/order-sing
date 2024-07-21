@@ -12,6 +12,11 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       t.boolean :direct_messages_enabled, null: false, default: true
       t.text    :profile
 
+      # vocal_range_id           声域（ソプラノ、アルト、テノール、バス）
+      # direct_messages_enabled  ダイレクトメッセージ
+      # profile                  プロフィール
+
+
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
