@@ -142,3 +142,4 @@ ja:
       not_saved:
         one: エラーが発生したため %{resource} は保存されませんでした。
         other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
+      must_include_letters_and_numbers: "パスワードは英字と数字の両方を含む必要があります"

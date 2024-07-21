@@ -4,28 +4,41 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-        # Active Storageの設定
-        has_one_attached :image
+  # Active Storageの設定
+  has_one_attached :image
 
-        # ActiveHashの設定
-        belongs_to :vocal_range, class_name: 'VocalRange', optional: true
+  # ActiveHashの設定
+  belongs_to :vocal_range, class_name: 'VocalRange', optional: true
 
-        # バリデーション
-        validates :name             , presence: true
-        validates :birthdate        , presence: true
+  # バリデーション
+  validate :password_must_include_both_letters_and_numbers
+  validate :password_cannot_include_full_width_characters
+  validates :name, presence: true
+  validates :birthdate, presence: true
 
-        # アソシエーション
-        has_many :lists    , dependent: :destroy
-        has_many :comments , dependent: :destroy
-        has_many :favorites, dependent: :destroy
+  def password_must_include_both_letters_and_numbers
+    if password.present? && (!password.match?(/[a-zA-Z]/) || !password.match?(/\d/))
+      errors.add :password, "は英字と数字の両方を含む必要があります"
+    end
+  end
 
-        # デフォルト値の設定
-        after_initialize :set_default_values, if: :new_record?
+  def password_cannot_include_full_width_characters
+    if password.present? && password.match?(/[ぁ-んァ-ン々〆〤]/)
+      errors.add :password, "は全角文字を含むことはできません"
+    end
+  end
 
-        private
+  # アソシエーション
+  has_many :lists, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
-        def set_default_values
-          self.direct_messages_enabled ||= true
-        end
+  # デフォルト値の設定
+  after_initialize :set_default_values, if: :new_record?
 
+  private
+
+  def set_default_values
+    self.direct_messages_enabled ||= true
+  end
 end
