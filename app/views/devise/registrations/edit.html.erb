@@ -1,20 +1,21 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<!-- app/views/devise/registrations/edit.html.erb -->
+<h2>プロフィールの編集</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
     <%= f.label :name, "ユーザー名" %><br />
-    <%= f.text_field :name, value: resource.name %>
+    <%= f.text_field :name %>
   </div>
 
-<div class="field">
-  <%= f.label :image, "画像" %><br />
-  <% if resource.image.attached? %>
-    <%= image_tag resource.image, alt: "プロフィール画像", style: "max-width: 200px;" %>
-  <% end %>
-  <%= f.file_field :image %>
-</div>
+  <div class="field">
+    <%= f.label :image, "画像" %><br />
+    <% if resource.image.attached? %>
+      <%= image_tag resource.image, alt: "プロフィール画像", style: "max-width: 200px;" %>
+    <% end %>
+    <%= f.file_field :image %>
+  </div>
 
   <div class="field">
     <%= f.label :email, "メールアドレス" %><br />
@@ -24,25 +25,6 @@
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :current_password, "現在のパスワード" %><br />
-    <%= f.password_field :current_password, autocomplete: "current-password", placeholder: "パスワード変更時のみ入力が必要です" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password, "新しいパスワード" %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %>文字以上の半角英数</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "新しいパスワード（確認用）" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
 
   <div class="field">
     <%= f.label :vocal_range_id, "声域" %><br />
@@ -59,6 +41,6 @@
   </div>
 <% end %>
 
-<%= button_to "アカウントを削除する", registration_path(resource_name), data: { confirm: "本当に削除しますか？", turbo_confirm: "本当に削除しますか？" }, method: :delete %>
+<%= link_to 'パスワードを変更する', edit_user_password_path %>
 
 <%= link_to "戻る", :back %>

@@ -1,5 +1,7 @@
+# config/routes.rb
+
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { registrations: 'users/registrations', passwords: 'users/passwords' }
 
   # ログイン時 トップページを開くとログイン中のユーザーのリスト一覧ページへ
   authenticated :user do
@@ -12,6 +14,4 @@ Rails.application.routes.draw do
   end
 
   resources :lists
-
-
 end
