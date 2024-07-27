@@ -1,23 +1,26 @@
 /* 曲情報テーブルのスタイル */
 .content {
   width: 100%;
-  padding: 0 40px;
+  padding: 0 20px;
   height: calc(100vh - 100px - 40px); /* ヘッダーと固定ヘッダーの高さを引いた値 */
   color: black;
   font-size: 16px;
-  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .songs_table_header_wrapper {
+  width: 100%;
   position: -webkit-sticky; /* Safari用 */
   position: sticky;
-  top: 100px; /* ヘッダーの高さ分だけ位置を下げる */
   background-color: #F8F8FF; /* ヘッダーと同じ背景色 */
   z-index: 2; /* テーブル内容の上に表示 */
   display: grid;
   grid-template-columns: repeat(6, 1fr); /* 6列の等幅グリッド */
   gap: 10px; /* 列間の隙間 */
-  padding: 0; /* パディングをリセット */
+  padding: 0 20px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .songs_table_header {
@@ -25,6 +28,7 @@
 }
 
 .songs_table {
+  margin-top: 10px;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(6, 1fr); /* 6列の等幅グリッド */
@@ -63,7 +67,7 @@
 /* 基本レイアウト */
 .wrapper {
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   display: flex;
 }
 
@@ -100,24 +104,29 @@
 }
 
 .list_corner {
+  width: 300px;
   height: calc(100vh - 100px);
   background-color: #EAD9FF;
 }
 
 .lists {
-  width: 100%;
+  width: 245x;
   height: 100%;
   margin: 0;
-  padding: 0;
+  padding: 5px;
   list-style: none;
-  overflow: auto;
+  overflow:hidden;
   scrollbar-color: #DCC2FF #EAD9FF;
 }
 
 .list_name {
-  width: 100%;
+  width: 245px;
+  height: 5px;
   padding: 20px 20px 40px;
-  background-color: #EAD9FF;
+  margin-bottom: 5px;
+  background-color: #f4eaff;
+  border: 2px solid #D0B0FF;
+  border-radius: 10px;
 }
 
 .list_name a {
@@ -131,7 +140,7 @@
 }
 
 .main_header {
-  padding: 0 40px;
+  padding: 0 20px;
   height: 100px;
   width: 100%;
   display: flex;
@@ -146,7 +155,13 @@
 }
 
 .list_description {
+  width: 60%;
   padding: 20px;
+  margin: 5px;
+  margin-right: 20px;
   font-size: 16px;
   color: #555;
+  background-color: #eeeefa;
+  border: 2px solid #e4e4f8;
+  border-radius: 10px;
 }
