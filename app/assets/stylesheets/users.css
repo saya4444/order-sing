@@ -1,0 +1,44 @@
+/* app/assets/stylesheets/users.css */
+
+.user_avatar {
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.no_image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.direct_message_button .button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.direct_message_button .button:hover {
+  background-color: #0056b3;
+}
+
+.back_button .button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.back_button .button:hover {
+  background-color: #0056b3;
+}
