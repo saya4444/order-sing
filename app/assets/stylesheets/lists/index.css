@@ -173,10 +173,16 @@
 .list_create a {
   height: 38px;
   padding: 5px;
-  color: #6927FF;
-  font-size: 14px;
+  font-size: 13px;
   text-decoration: none;
-  border: 1px solid #6927FF;
+  background-color: #dfcbff;
+  border: 1px solid #c3a0f1;
+  border-radius: 5px;
+}
+
+.list_create a:hover {
+  background-color: #e0d8f0;
+  border-color: #c3a0f1;
 }
 
 .list_corner {

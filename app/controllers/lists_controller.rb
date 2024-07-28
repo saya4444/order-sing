@@ -22,10 +22,29 @@ class ListsController < ApplicationController
     redirect_to lists_path, notice: 'リストが削除されました。'
   end
 
+  # 新規作成フォームを表示
+  def new
+    @list = List.new
+  end
+
+  # 新しいリストを作成
+  def create
+    @list = current_user.lists.build(list_params)
+    if @list.save
+      redirect_to lists_path, notice: 'リストが作成されました。'
+    else
+      render :new
+    end
+  end
+
   private
 
   def set_list
     @list = List.find_by(id: params[:id])
     redirect_to lists_path, alert: 'リストが見つかりません' unless @list
+  end
+
+  def list_params
+    params.require(:list).permit(:list_title, :description)
   end
 end
