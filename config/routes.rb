@@ -1,5 +1,3 @@
-# config/routes.rb
-
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations', passwords: 'users/passwords' }
 
@@ -14,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :lists do
-    resources :songs, only: [:new, :create, :destroy]
+    resources :songs, only: [:new, :create, :destroy, :update, :edit]
     resources :comments, only: [:create, :show]
   end
 
