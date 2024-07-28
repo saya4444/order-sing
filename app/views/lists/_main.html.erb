@@ -14,9 +14,6 @@
   <div class="song_form_wrapper">
     <%= form_with(model: [list, Song.new], local: false, id: 'new_song') do |form| %>
       <div class="song_form">
-        <div class="actions">
-          <%= form.submit "追加", class: "add_song_button" %>
-        </div>
         <div><%= form.text_field :song_title, placeholder: "曲名" %></div>
         <div><%= form.text_field :reading, placeholder: "読み仮名" %></div>
         <div>
@@ -25,6 +22,9 @@
         <div><%= form.text_field :singer, placeholder: "歌手名" %></div>
         <div><%= form.text_field :link, placeholder: "リンク" %></div>
         <div><%= form.text_field :remarks, placeholder: "備考" %></div>
+        <div class="actions">
+          <%= form.submit "追加", class: "add_song_button" %>
+        </div>
       </div>
     <% end %>
   </div>

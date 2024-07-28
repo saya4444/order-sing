@@ -3,6 +3,8 @@
   width: 100%;
   padding: 0 20px;
   margin-bottom: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .song_form {
