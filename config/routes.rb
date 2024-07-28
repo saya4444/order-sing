@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations', passwords: 'users/passwords' }
 
+  # ログアウトができなかったため、GETリクエストをdestroy Actionへ渡す
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+
   # ログイン時 トップページを開くとログイン中のユーザーのリスト一覧ページへ
   authenticated :user do
     root 'lists#index', as: :authenticated_root

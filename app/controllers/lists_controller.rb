@@ -32,12 +32,11 @@ class ListsController < ApplicationController
   end
 
   def edit
-    # editアクションはauthorize_user!コールバックで制御されます
   end
 
   def update
     if @list.update(list_params)
-      redirect_to lists_path(id: @list.id), notice: 'リストが更新されました。'
+      redirect_to lists_path, notice: 'リストが更新されました。'
     else
       render :edit
     end
@@ -56,7 +55,7 @@ class ListsController < ApplicationController
   end
 
   def authorize_user!
-    redirect_to lists_path, alert: '権限がありません。' unless @list.user == current_user
+    redirect_to lists_path, alert: '権限がありません' unless @list.user == current_user
   end
 
   def list_params
