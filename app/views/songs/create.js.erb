@@ -1,4 +1,4 @@
-// indexページでの曲の追加
+// indexページでの曲情報の追加
 <% if @song.persisted? %>
   $('#songs_table').append('<%= j render(@song) %>');
   $('#new_song')[0].reset();
