@@ -1,6 +1,7 @@
 class ListsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_list, only: [:show, :destroy]
+  before_action :set_list, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
     @lists = List.all
@@ -17,17 +18,10 @@ class ListsController < ApplicationController
     @songs = @list.songs
   end
 
-  def destroy
-    @list.destroy
-    redirect_to lists_path, notice: 'リストが削除されました。'
-  end
-
-  # 新規作成フォームを表示
   def new
     @list = List.new
   end
 
-  # 新しいリストを作成
   def create
     @list = current_user.lists.build(list_params)
     if @list.save
@@ -37,11 +31,32 @@ class ListsController < ApplicationController
     end
   end
 
+  def edit
+    # editアクションはauthorize_user!コールバックで制御されます
+  end
+
+  def update
+    if @list.update(list_params)
+      redirect_to lists_path(id: @list.id), notice: 'リストが更新されました。'
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @list.destroy
+    redirect_to lists_path, notice: 'リストが削除されました。'
+  end
+
   private
 
   def set_list
     @list = List.find_by(id: params[:id])
     redirect_to lists_path, alert: 'リストが見つかりません' unless @list
+  end
+
+  def authorize_user!
+    redirect_to lists_path, alert: '権限がありません。' unless @list.user == current_user
   end
 
   def list_params

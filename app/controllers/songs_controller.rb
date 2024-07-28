@@ -1,6 +1,8 @@
 class SongsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_list
-  before_action :set_song, only: [:destroy]
+  before_action :set_song, only: [:destroy, :update, :edit]
+  before_action :authorize_user!, only: [:destroy, :update, :edit]
 
   def create
     if @list.nil?
@@ -33,6 +35,24 @@ class SongsController < ApplicationController
     end
   end
 
+  def edit
+    # editアクションはauthorize_user!コールバックで制御されます
+  end
+
+  def update
+    if @song.update(song_params)
+      respond_to do |format|
+        format.html { redirect_to lists_path(id: @list.id), notice: '曲が更新されました。' }
+        format.js   # update.js.erb を呼び出します
+      end
+    else
+      respond_to do |format|
+        format.html { render 'lists/index' }
+        format.js   # エラーメッセージを表示するためのJSファイルを作成する場合
+      end
+    end
+  end
+
   private
 
   def set_list
@@ -41,6 +61,10 @@ class SongsController < ApplicationController
 
   def set_song
     @song = @list.songs.find(params[:id])
+  end
+
+  def authorize_user!
+    redirect_to lists_path(id: @list.id), alert: '権限がありません。' unless @list.user == current_user
   end
 
   def song_params
