@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     resources :songs, only: [:new, :create, :destroy]
   end
 
+  resources :lists do
+    resources :comments, only: [:create]
+  end
+
   resources :songs, only: [:index, :show, :edit, :update, :destroy]
 
   resources :users, only: [:show]

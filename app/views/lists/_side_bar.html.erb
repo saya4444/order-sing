@@ -29,3 +29,35 @@
     <% end %>
   </ul>
 </div>
+
+<% if @selected_list %>
+  <div class="side_bar_footer">
+    <div class="comments_list_title">
+      <h4><%= @selected_list.list_title %> へのコメント</h4>
+    </div>
+    <div class="comment_form">
+      <%= form_with(model: [@selected_list, @selected_list.comments.build], local: true) do |form| %>
+        <div class="field">
+          <%= form.label :content, "コメント:" %><br>
+          <%= form.text_area :content, rows: 3 %>
+        </div>
+        <div class="actions">
+          <%= form.submit "コメントを投稿する" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="comments_section">
+      <% if @comments.any? %>
+        <% @comments.each do |comment| %>
+          <div class="comment">
+            <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+            <p class="comment_timestamp"><%= comment.created_at.strftime('%Y-%m-%d %H:%M:%S') %></p> <!-- 日付と時刻を表示 -->
+          </div>
+        <% end %>
+      <% else %>
+        <p>コメントがありません</p>
+      <% end %>
+    </div>
+
+  </div>
+<% end %>

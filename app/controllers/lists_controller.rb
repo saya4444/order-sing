@@ -3,8 +3,14 @@ class ListsController < ApplicationController
   before_action :set_list, only: [:show, :destroy]
 
   def index
-    @lists = current_user.lists
-    @selected_list = List.find_by(id: params[:id])
+    @lists = List.all
+    if params[:id].present?
+      @selected_list = List.find(params[:id])
+      @comments = @selected_list.comments.order(created_at: :desc)
+    else
+      @selected_list = nil
+      @comments = []
+    end
   end
 
   def show
