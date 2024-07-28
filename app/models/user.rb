@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_one_attached :image
 
   # ActiveHashの設定
+  extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :vocal_range, class_name: 'VocalRange', optional: true
 
   # バリデーション

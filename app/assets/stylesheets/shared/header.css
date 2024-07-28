@@ -1,3 +1,28 @@
-.header{
+.header {
   height: 50PX;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.title {
+  margin-right: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.search-form {
+  flex-grow: 1;
+}
+
+.logout, .setting {
+  margin-left: 20px;
 }

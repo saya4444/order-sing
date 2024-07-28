@@ -1,1 +1,43 @@
-個人詳細
+<div class="user_profile">
+  <div class="user_info">
+    <div class="user_avatar_container">
+      <% if @user.image.attached? %>
+        <%= image_tag @user.image.variant(resize: "50x50"), alt: @user.name, class: "user_avatar" %>
+      <% else %>
+        <div class="no_image">No Image</div>
+      <% end %>
+    </div>
+    <div class="name">
+      <%= @user.name %>
+    </div>
+    <div class="vocal_range">
+      <%= @user.vocal_range.name if @user.vocal_range %>
+    </div>
+    <div class="profile">
+      <%= @user.profile %>
+    </div>
+  </div>
+
+  <% if @user.direct_messages_enabled %>
+    <div class="direct_message_button">
+      <%= link_to "ダイレクトメッセージ", new_direct_message_path(user_id: @user.id) %>
+    </div>
+  <% end %>
+
+  <div class="user_lists">
+    <h2>作成したリスト</h2>
+    <ul>
+      <% @user.lists.each do |list| %>
+        <li>
+          <h3><%= link_to list.list_title, list_path(list) %></h3>
+          <p><%= list.description %></p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <!-- 戻るボタン -->
+  <div class="back_button">
+    <%= link_to '戻る', request.referrer || root_path, class: 'button' %>
+  </div>
+</div>

@@ -6,12 +6,12 @@
     </form>
   </div>
 
-<div class='main'>
+<div class='logout'>
 <%= link_to 'ログアウト', destroy_user_session_path, data: {turbo_method: :delete}, class: "logout" %>
-
-<div class="container">
-  <%= link_to '設定', edit_user_registration_path, class: 'btn btn-primary' %>
 </div>
+
+<div class="setting">
+  <%= link_to '設定', edit_user_registration_path, class: 'btn btn-primary' %>
 </div>
 
 
