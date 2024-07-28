@@ -18,19 +18,17 @@
           <%= form.submit "追加", class: "add_song_button" %>
         </div>
         <div><%= form.text_field :song_title, placeholder: "曲名" %></div>
-        <div><%= form.text_field :reading   , placeholder: "読み仮名" %></div>
+        <div><%= form.text_field :reading, placeholder: "読み仮名" %></div>
         <div>
           <%= form.collection_select :key_id, Key.all, :id, :name, { include_blank: 'キー' }, { class: 'key_select' } %>
         </div>
-        <div><%= form.text_field :singer    , placeholder: "歌手名" %></div>
-        <div><%= form.text_field :link      , placeholder: "リンク" %></div>
-        <div><%= form.text_field :remarks   , placeholder: "備考" %></div>
+        <div><%= form.text_field :singer, placeholder: "歌手名" %></div>
+        <div><%= form.text_field :link, placeholder: "リンク" %></div>
+        <div><%= form.text_field :remarks, placeholder: "備考" %></div>
       </div>
     <% end %>
   </div>
 <% end %>
-
-
 
 <!-- 項目名 -->
 <div class="songs_table_header_wrapper">
@@ -41,6 +39,7 @@
     <div>歌手名</div>
     <div>リンク</div>
     <div>備考</div>
+    <div>削除</div> <!-- 削除列追加 -->
   </div>
 </div>
 
@@ -51,7 +50,7 @@
 
       <% # 曲情報を表示 %>
       <% list.songs.each do |song| %>
-        <div class="songs_table_row">
+        <div class="songs_table_row" id="song_<%= song.id %>">
           <div><%= song.song_title %></div>
           <div><%= song.reading %></div>
           <div><%= song.key ? song.key.name : '未設定' %></div>
@@ -64,12 +63,16 @@
             <% end %>
           </div>
           <div><%= song.remarks %></div>
+          <div>
+            <%= button_to '削除', list_song_path(list, song), method: :delete, remote: true, form: { data: { confirm: '本当に削除しますか？' } }, class: 'delete_song_button' %>
+          </div>
         </div>
       <% end %>
 
       <% # 残りの空行を追加 %>
       <% (200 - song_count).times do %>
         <div class="songs_table_row empty_row">
+          <div>&nbsp;</div>
           <div>&nbsp;</div>
           <div>&nbsp;</div>
           <div>&nbsp;</div>
@@ -83,6 +86,7 @@
       <% # 曲情報がない場合の空行を表示 %>
       <% 200.times do %>
         <div class="songs_table_row empty_row">
+          <div>&nbsp;</div>
           <div>&nbsp;</div>
           <div>&nbsp;</div>
           <div>&nbsp;</div>

@@ -1,3 +1,30 @@
+/* 曲情報新規追加フォーム */
+.song_form_wrapper {
+  width: 100%;
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+.song_form {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7列の等幅グリッド */
+  gap: 10px; /* 列間の隙間 */
+}
+
+.song_form .actions {
+  grid-column: span 1; /* ボタンを1列目に配置 */
+  text-align: left; /* ボタンを左寄せ */
+}
+
+.song_form > div {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd; /* セルの境界線 */
+  background-color: #f9f9f9; /* セルの背景色 */
+  word-wrap: break-word; /* 内容が長い場合に折り返し */
+  box-sizing: border-box; /* パディングとボーダーを含む */
+}
+
 /* 曲情報テーブルのスタイル */
 .content {
   width: 100%;
@@ -15,7 +42,7 @@
   position: sticky;
   z-index: 2; /* テーブル内容の上に表示 */
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* 6列の等幅グリッド */
+  grid-template-columns: repeat(7, 1fr); /* 7列の等幅グリッド */
   gap: 10px; /* 列間の隙間 */
   padding: 0 20px;
   overflow-y: scroll;
@@ -30,7 +57,7 @@
   margin-top: 10px;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* 6列の等幅グリッド */
+  grid-template-columns: repeat(7, 1fr); /* 7列の等幅グリッド */
   gap: 10px; /* 列間の隙間 */
   border-collapse: collapse; /* テーブルのセル間の隙間をなくす */
 }
@@ -61,6 +88,20 @@
 
 .songs_table_row:nth-child(odd) > div {
   background-color: #fff; /* 奇数行の背景色 */
+}
+
+/* 削除ボタンのスタイル */
+.delete_song_button {
+  background-color: #bbbbbb; /* 削除ボタンの背景色 */
+  color: white; /* 削除ボタンの文字色 */
+  border: none; /* 削除ボタンのボーダーを削除 */
+  padding: 5px 10px; /* 削除ボタンのパディング */
+  cursor: pointer; /* 削除ボタンのカーソルをポインタに */
+  border-radius: 5px; /* 削除ボタンの角を丸くする */
+}
+
+.delete_song_button:hover {
+  background-color: #8a8a8a; /* ホバー時の背景色 */
 }
 
 /* 基本レイアウト */
@@ -263,35 +304,4 @@
 
 .comment_form input[type="submit"]:hover {
   background-color: #c8c1d6;
-}
-
-
-
-
-
-/* 曲情報新規追加フォーム */
-.song_form_wrapper {
-  width: 100%;
-  padding: 0 20px;
-  margin-bottom: 10px;
-}
-
-.song_form {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7列の等幅グリッド */
-  gap: 10px; /* 列間の隙間 */
-}
-
-.song_form .actions {
-  grid-column: span 1; /* ボタンを1列目に配置 */
-  text-align: left; /* ボタンを左寄せ */
-}
-
-.song_form > div {
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ddd; /* セルの境界線 */
-  background-color: #f9f9f9; /* セルの背景色 */
-  word-wrap: break-word; /* 内容が長い場合に折り返し */
-  box-sizing: border-box; /* パディングとボーダーを含む */
 }

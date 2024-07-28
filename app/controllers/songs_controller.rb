@@ -1,5 +1,6 @@
 class SongsController < ApplicationController
   before_action :set_list
+  before_action :set_song, only: [:destroy]
 
   def create
     if @list.nil?
@@ -24,10 +25,22 @@ class SongsController < ApplicationController
     end
   end
 
+  def destroy
+    @song.destroy
+    respond_to do |format|
+      format.html { redirect_to lists_path(id: @list.id), notice: '曲が削除されました。' }
+      format.js   # destroy.js.erb を呼び出します
+    end
+  end
+
   private
 
   def set_list
     @list = current_user.lists.find_by(id: params[:list_id])
+  end
+
+  def set_song
+    @song = @list.songs.find(params[:id])
   end
 
   def song_params
