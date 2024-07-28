@@ -12,14 +12,11 @@ Rails.application.routes.draw do
   end
 
   resources :lists do
-    resources :songs, only: [:new, :create, :destroy, :update, :edit]
+    resources :songs, only: [:create, :destroy, :update, :edit]
     resources :comments, only: [:create, :show]
   end
-
-  resources :songs, only: [:index, :show, :edit, :update, :destroy]
 
   resources :users, only: [:show]
 
   resources :direct_messages, only: [:new, :create, :index, :show]
-
 end

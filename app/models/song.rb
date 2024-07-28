@@ -2,10 +2,10 @@
 class Song < ApplicationRecord
 
   # ActiveHashの設定
-  def key
-    Key.find_by(id: key_id)
-  end
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to_active_hash :key
 
+  # アソシエーション
   belongs_to :list
 
 end

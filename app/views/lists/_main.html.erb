@@ -9,6 +9,26 @@
   <% end %>
 </div>
 
+<!-- 曲の追加フォーム -->
+<% if list.present? %>
+  <div class="song_form_wrapper">
+    <%= form_with(model: [list, Song.new], local: false, id: 'new_song') do |form| %>
+      <div class="song_form">
+        <div class="actions">
+          <%= form.submit "追加", class: "add_song_button" %>
+        </div>
+        <div><%= form.text_field :song_title, placeholder: "曲名" %></div>
+        <div><%= form.text_field :reading   , placeholder: "読み仮名" %></div>
+        <div>
+          <%= form.collection_select :key_id, Key.all, :id, :name, { include_blank: 'キー' }, { class: 'key_select' } %>
+        </div>
+        <div><%= form.text_field :singer    , placeholder: "歌手名" %></div>
+        <div><%= form.text_field :link      , placeholder: "リンク" %></div>
+        <div><%= form.text_field :remarks   , placeholder: "備考" %></div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 
 
 
@@ -25,7 +45,7 @@
 </div>
 
 <div class="content">
-  <div class="songs_table">
+  <div class="songs_table" id="songs_table">
     <% if list.present? %>
       <% song_count = list.songs.size %>
 

@@ -2,7 +2,7 @@
 .content {
   width: 100%;
   padding: 0 20px;
-  height: calc(100vh - 100px - 40px); /* ヘッダーと固定ヘッダーの高さを引いた値 */
+  height: calc(100vh - 100px - 40px);
   color: black;
   font-size: 16px;
   overflow-y: scroll;
@@ -13,7 +13,6 @@
   width: 100%;
   position: -webkit-sticky; /* Safari用 */
   position: sticky;
-  background-color: #F8F8FF; /* ヘッダーと同じ背景色 */
   z-index: 2; /* テーブル内容の上に表示 */
   display: grid;
   grid-template-columns: repeat(6, 1fr); /* 6列の等幅グリッド */
@@ -264,4 +263,35 @@
 
 .comment_form input[type="submit"]:hover {
   background-color: #c8c1d6;
+}
+
+
+
+
+
+/* 曲情報新規追加フォーム */
+.song_form_wrapper {
+  width: 100%;
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+.song_form {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7列の等幅グリッド */
+  gap: 10px; /* 列間の隙間 */
+}
+
+.song_form .actions {
+  grid-column: span 1; /* ボタンを1列目に配置 */
+  text-align: left; /* ボタンを左寄せ */
+}
+
+.song_form > div {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd; /* セルの境界線 */
+  background-color: #f9f9f9; /* セルの背景色 */
+  word-wrap: break-word; /* 内容が長い場合に折り返し */
+  box-sizing: border-box; /* パディングとボーダーを含む */
 }
