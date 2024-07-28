@@ -1,6 +1,15 @@
 <div class="side_bar_header">
-  <div class="name">
-    <%= link_to current_user.name, user_path(current_user) %>
+  <div class="user_info">
+    <div class="user_avatar_container">
+      <% if current_user.image.attached? %>
+        <%= image_tag current_user.image.variant(resize: "50x50"), alt: current_user.name, class: "user_avatar" %>
+      <% else %>
+        <div class="no_image">No Image</div>
+      <% end %>
+    </div>
+    <div class="name">
+      <%= link_to current_user.name, user_path(current_user) %>
+    </div>
   </div>
   <div class="list_create">
     <%= link_to "新規作成", new_list_path %>

@@ -84,6 +84,37 @@
   justify-content: space-between;
 }
 
+.user_info {
+  display: flex;
+  align-items: center;
+}
+
+.user_avatar_container {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.user_avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.no_image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: bold;
+  color: #555;
+}
+
 .name {
   line-height: 100px;
 }

@@ -1,15 +1,11 @@
-<%# CSS・・・assets/stylesheets/lists/index.css %>
-
 <%= render "shared/header" %>
 
 <div class="wrapper">
-
   <div class="side_bar">
     <%= render "side_bar" %>
   </div>
 
-  <div class='main'>
+  <div class="main">
     <%= render "main", list: @selected_list %>
   </div>
-
 </div>
