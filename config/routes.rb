@@ -1,4 +1,3 @@
-# config/routes.rb
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations', passwords: 'users/passwords' }
 
@@ -18,11 +17,16 @@ Rails.application.routes.draw do
   end
 
   resources :lists do
+    member do
+      get 'show' # ここでリストの詳細ページを指定
+    end
     resources :songs, only: [:create, :destroy, :update, :edit]
     resources :comments, only: [:create, :show]
   end
 
-  resources :users, only: [:show]
+  resources :users, only: [:show] do
+    get 'lists', to: 'lists#index', as: :user_lists
+  end
 
   resources :direct_messages, only: [:new, :create, :index, :show]
 
