@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_one_attached :image
 
   # ActiveHashの設定
+  extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :vocal_range, class_name: 'VocalRange', optional: true
 
   # バリデーション
@@ -32,6 +33,8 @@ class User < ApplicationRecord
   has_many :lists, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :sent_direct_messages    , class_name: 'DirectMessage', foreign_key: 'sender_id'   , dependent: :destroy
+  has_many :received_direct_messages, class_name: 'DirectMessage', foreign_key: 'recipient_id', dependent: :destroy
 
   # デフォルト値の設定
   after_initialize :set_default_values, if: :new_record?

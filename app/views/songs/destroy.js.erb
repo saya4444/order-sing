@@ -1,0 +1,8 @@
+// indexページでの曲情報の削除
+
+$("#song_<%= @song.id %>").remove();
+
+// 空行の更新
+<% (200 - @list.songs.size).times do %>
+  $(".songs_table").append('<div class="songs_table_row empty_row"><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div></div>');
+<% end %>

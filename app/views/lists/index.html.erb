@@ -1,6 +1,12 @@
-a
-<%= link_to 'ログアウト', destroy_user_session_path, data: {turbo_method: :delete}, class: "logout" %>
+<%= render "shared/header" %>
 
-<div class="container">
-  <%= link_to '設定', edit_user_registration_path, class: 'btn btn-primary' %>
+<div class="wrapper">
+  <div class="side_bar">
+    <%= render "side_bar" %>
+  </div>
+
+  <div class="main">
+    <%= render "main", list: @selected_list %>
+  </div>
+
 </div>

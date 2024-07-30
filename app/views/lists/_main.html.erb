@@ -1,0 +1,100 @@
+<div class="main_header">
+  <div class="list_title">
+    <%= list.present? ? list.list_title : "リストを選択してください" %>
+  </div>
+  <% if list.present? %>
+    <div class="list_description">
+      <%= list.description.present? ? list.description : "" %>
+    </div>
+  <% end %>
+</div>
+
+<!-- 曲の追加フォーム -->
+<% if list.present? %>
+  <div class="song_form_wrapper">
+    <%= form_with(model: [list, Song.new], local: false, id: 'new_song') do |form| %>
+      <div class="song_form">
+        <div><%= form.text_field :song_title, placeholder: "曲名" %></div>
+        <div><%= form.text_field :reading, placeholder: "読み仮名" %></div>
+        <div>
+          <%= form.collection_select :key_id, Key.all, :id, :name, { include_blank: 'キー' }, { class: 'key_select' } %>
+        </div>
+        <div><%= form.text_field :singer, placeholder: "歌手名" %></div>
+        <div><%= form.text_field :link, placeholder: "リンク" %></div>
+        <div><%= form.text_field :remarks, placeholder: "備考" %></div>
+        <div class="actions">
+          <%= form.submit "追加", class: "add_song_button" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<!-- 項目名 -->
+<div class="songs_table_header_wrapper">
+  <div class="songs_table_header">
+    <div>曲名</div>
+    <div>読み仮名</div>
+    <div>キー</div>
+    <div>歌手名</div>
+    <div>リンク</div>
+    <div>備考</div>
+    <div>削除</div> <!-- 削除列追加 -->
+  </div>
+</div>
+
+<div class="content">
+  <div class="songs_table" id="songs_table">
+    <% if list.present? %>
+      <% song_count = list.songs.size %>
+
+      <% # 曲情報を表示 %>
+      <% list.songs.each do |song| %>
+        <div class="songs_table_row" id="song_<%= song.id %>">
+          <div><%= song.song_title %></div>
+          <div><%= song.reading %></div>
+          <div><%= song.key ? song.key.name : '未設定' %></div>
+          <div><%= song.singer %></div>
+          <div>
+            <% if song.link.present? %>
+              <a href="<%= song.link %>" target="_blank" rel="noopener noreferrer">リンクを開く</a>
+            <% else %>
+              &nbsp;
+            <% end %>
+          </div>
+          <div><%= song.remarks %></div>
+          <div>
+            <%= button_to '削除', list_song_path(list, song), method: :delete, remote: true, form: { data: { confirm: '本当に削除しますか？' } }, class: 'delete_song_button' %>
+          </div>
+        </div>
+      <% end %>
+
+      <% # 残りの空行を追加 %>
+      <% (200 - song_count).times do %>
+        <div class="songs_table_row empty_row">
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+        </div>
+      <% end %>
+
+    <% else %>
+      <% # 曲情報がない場合の空行を表示 %>
+      <% 200.times do %>
+        <div class="songs_table_row empty_row">
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

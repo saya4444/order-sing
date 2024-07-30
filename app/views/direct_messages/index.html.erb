@@ -1,0 +1,11 @@
+<!-- app/views/direct_messages/index.html.erb -->
+
+<h1>受信したメッセージ</h1>
+<% @received_messages.each do |message| %>
+  <p><strong><%= message.sender.name %>:</strong> <%= message.body %></p>
+<% end %>
+
+<h1>送信したメッセージ</h1>
+<% @sent_messages.each do |message| %>
+  <p><strong>宛先: <%= message.recipient.name %>:</strong> <%= message.body %></p>
+<% end %>

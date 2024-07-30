@@ -1,0 +1,14 @@
+<!-- app/views/direct_messages/new.html.erb -->
+
+<h1>ダイレクトメッセージを送信する</h1>
+
+<%= form_with model: @direct_message, url: direct_messages_path, local: true do |form| %>
+  <%= form.hidden_field :recipient_id, value: @user.id %>
+  <div class="field">
+    <%= form.label :body, "メッセージ内容" %>
+    <%= form.text_area :body %>
+  </div>
+  <div class="actions">
+    <%= form.submit "送信" %>
+  </div>
+<% end %>

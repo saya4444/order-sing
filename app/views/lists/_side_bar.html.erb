@@ -1,0 +1,63 @@
+<div class="side_bar_header">
+  <div class="user_info">
+    <div class="user_avatar_container">
+      <% if current_user.image.attached? %>
+        <%= image_tag current_user.image.variant(resize: "50x50"), alt: current_user.name, class: "user_avatar" %>
+      <% else %>
+        <div class="no_image">No Image</div>
+      <% end %>
+    </div>
+    <div class="name">
+      <%= link_to current_user.name, user_path(current_user) %>
+    </div>
+  </div>
+  <div class="list_create">
+    <%= link_to "新規リスト作成", new_list_path %>
+  </div>
+</div>
+
+<div class="list_corner">
+  <ul class="lists">
+    <% if current_user.lists.any? %>
+      <% current_user.lists.each do |list| %>
+        <li class="list_name">
+          <%= link_to list.list_title, lists_path(id: list.id) %>
+        </li>
+      <% end %>
+    <% else %>
+      <li class="list_name">リストがありません</li>
+    <% end %>
+  </ul>
+</div>
+
+<% if @selected_list %>
+  <div class="side_bar_footer">
+    <div class="comments_list_title">
+      <h4><%= @selected_list.list_title %> へのコメント</h4>
+    </div>
+    <div class="comment_form">
+      <%= form_with(model: [@selected_list, @selected_list.comments.build], local: true) do |form| %>
+        <div class="field">
+          <%= form.label :content, "コメント:" %><br>
+          <%= form.text_area :content, rows: 3 %>
+        </div>
+        <div class="actions">
+          <%= form.submit "コメントを投稿する" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="comments_section">
+      <% if @comments.any? %>
+        <% @comments.each do |comment| %>
+          <div class="comment">
+            <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+            <p class="comment_timestamp"><%= comment.created_at.strftime('%Y-%m-%d %H:%M:%S') %></p> <!-- 日付と時刻を表示 -->
+          </div>
+        <% end %>
+      <% else %>
+        <p>コメントがありません</p>
+      <% end %>
+    </div>
+
+  </div>
+<% end %>

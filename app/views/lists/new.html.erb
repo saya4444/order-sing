@@ -1,0 +1,19 @@
+<h1>新規リスト作成</h1>
+
+<%= form_with(model: @list, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :list_title, "リスト名:" %>
+    <%= form.text_field :list_title, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description, "リストの説明:" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "リストを作成する" %>
+  </div>
+<% end %>
+
+<%= link_to '戻る', lists_path %>
