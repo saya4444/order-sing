@@ -1,6 +1,7 @@
+# app/controllers/songs_controller.rb
 class SongsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_list
+  before_action :set_list, only: [:create, :destroy, :update, :edit]
   before_action :set_song, only: [:destroy, :update, :edit]
   before_action :authorize_user!, only: [:destroy, :update, :edit]
 
@@ -17,7 +18,7 @@ class SongsController < ApplicationController
     if @song.save
       respond_to do |format|
         format.html { redirect_to lists_path(id: @list.id), notice: '曲が追加されました。' }
-        format.js   # create.js.erb を呼び出します
+        format.js   # create.js.erb を呼び出す
       end
     else
       respond_to do |format|
@@ -32,6 +33,17 @@ class SongsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to lists_path(id: @list.id), notice: '曲が削除されました。' }
       format.js   # destroy.js.erb を呼び出します
+    end
+  end
+
+  def search
+    if params[:query].present?
+      query = params[:query]
+      @songs = Song.joins(:list)
+                   .where('songs.song_title ILIKE :query OR songs.reading ILIKE :query OR songs.singer ILIKE :query OR songs.remarks ILIKE :query OR lists.list_title ILIKE :query OR lists.description ILIKE :query', query: "%#{query}%")
+                   .order('similarity(songs.song_title, :query) DESC, similarity(songs.reading, :query) DESC, similarity(songs.singer, :query) DESC, similarity(songs.remarks, :query) DESC, similarity(lists.list_title, :query) DESC, similarity(lists.description, :query) DESC')
+    else
+      @songs = Song.none
     end
   end
 

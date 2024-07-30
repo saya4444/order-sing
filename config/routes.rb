@@ -1,3 +1,4 @@
+# config/routes.rb
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations', passwords: 'users/passwords' }
 
@@ -24,4 +25,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
 
   resources :direct_messages, only: [:new, :create, :index, :show]
+
+  # 検索機能
+  get 'search', to: 'songs#search'
 end

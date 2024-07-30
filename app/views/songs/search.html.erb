@@ -1,0 +1,18 @@
+<!-- app/views/songs/search.html.erb -->
+<h1>検索結果</h1>
+
+<% if @songs.any? %>
+  <ul>
+    <% @songs.each do |song| %>
+      <li>
+        <strong>曲名:</strong> <%= song.song_title %><br>
+        <strong>歌手名:</strong> <%= song.singer %><br>
+        <strong>キー:</strong> <%= song.key.name %><br>
+        <strong>リスト名:</strong> <%= link_to song.list.list_title, user_path(song.list.user) %><br>
+        <strong>リストの説明:</strong> <%= song.list.description %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>検索結果が見つかりませんでした。</p>
+<% end %>
