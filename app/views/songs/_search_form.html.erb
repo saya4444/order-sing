@@ -1,0 +1,17 @@
+<!-- app/views/songs/search_form.html.erb -->
+<!-- 検索バー -->
+<form class="search-form" action="<%= search_path %>" method="get">
+  <div>
+    <input type="text" name="song_title" placeholder="曲名を入力">
+    <input type="text" name="reading" placeholder="読み仮名を入力">
+    <input type="text" name="singer" placeholder="歌手名を入力">
+    <%= collection_select(:song, :key_id, Key.all, :id, :name, { include_blank: 'キーを選択' }, { name: 'key_id' }) %>
+  </div>
+  <div>
+    <input type="text" name="song_title_2" placeholder="2曲目の曲名を入力">
+    <input type="text" name="reading_2" placeholder="2曲目の読み仮名を入力">
+    <input type="text" name="singer_2" placeholder="2曲目の歌手名を入力">
+    <%= collection_select(:song, :key_id_2, Key.all, :id, :name, { include_blank: '2曲目のキーを選択' }, { name: 'key_id_2' }) %>
+  </div>
+  <button type="submit">検索</button>
+</form>

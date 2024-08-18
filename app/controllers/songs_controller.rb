@@ -36,29 +36,30 @@ class SongsController < ApplicationController
   end
 
   def search
-    query = params[:query]
+    @songs = Song.all
 
-    if query.present?
-      @songs = Song.joins(:list)
-                   .where('
-                     songs.song_title COLLATE utf8_general_ci LIKE :query OR
-                     songs.reading COLLATE utf8_general_ci LIKE :query OR
-                     songs.singer COLLATE utf8_general_ci LIKE :query OR
-                     songs.remarks COLLATE utf8_general_ci LIKE :query OR
-                     lists.list_title COLLATE utf8_general_ci LIKE :query OR
-                     lists.description COLLATE utf8_general_ci LIKE :query',
-                     query: "%#{query}%")
-                   .order(Arel.sql(
-                     "CASE WHEN songs.song_title COLLATE utf8_general_ci LIKE '%#{query}%' THEN 1 ELSE 0 END DESC, " \
-                     "CASE WHEN songs.reading COLLATE utf8_general_ci LIKE '%#{query}%' THEN 1 ELSE 0 END DESC, " \
-                     "CASE WHEN songs.singer COLLATE utf8_general_ci LIKE '%#{query}%' THEN 1 ELSE 0 END DESC, " \
-                     "CASE WHEN songs.remarks COLLATE utf8_general_ci LIKE '%#{query}%' THEN 1 ELSE 0 END DESC, " \
-                     "CASE WHEN lists.list_title COLLATE utf8_general_ci LIKE '%#{query}%' THEN 1 ELSE 0 END DESC, " \
-                     "CASE WHEN lists.description COLLATE utf8_general_ci LIKE '%#{query}%' THEN 1 ELSE 0 END DESC"
-                   ))
-    else
-      @songs = Song.none
+    # 1曲目の検索条件を適用
+    if params[:song_title].present?
+      @songs = @songs.where('song_title LIKE ?', "%#{params[:song_title]}%")
     end
+    if params[:reading].present?
+      @songs = @songs.where('reading LIKE ?', "%#{params[:reading]}%")
+    end
+    if params[:singer].present?
+      @songs = @songs.where('singer LIKE ?', "%#{params[:singer]}%")
+    end
+    if params[:key_id].present? && params[:key_id] != ""
+      @songs = @songs.where(key_id: params[:key_id])
+    end
+    # 2曲目の検索条件を適用
+    if params[:song_title_2].present? || params[:reading_2].present? || params[:singer_2].present? || (params[:key_id_2].present? && params[:key_id_2] != "")
+      key_condition = params[:key_id_2].present? ? "second_songs.key_id = #{params[:key_id_2]}" : '1=1'
+      @songs = @songs.where(
+        'EXISTS (SELECT 1 FROM songs second_songs WHERE second_songs.list_id = songs.list_id AND second_songs.song_title LIKE ? AND second_songs.reading LIKE ? AND second_songs.singer LIKE ? AND (' + key_condition + ' OR ? IS NULL))',
+        "%#{params[:song_title_2]}%", "%#{params[:reading_2]}%", "%#{params[:singer_2]}%", params[:key_id_2]
+      )
+    end
+    render :search
   end
 
 

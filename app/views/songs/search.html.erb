@@ -1,3 +1,4 @@
+<!-- app/views/songs/search.html.erb -->
 <h1>検索結果</h1>
 
 <% if @songs.any? %>
@@ -6,10 +7,12 @@
       <li>
         <strong>曲名:</strong> <%= song.song_title %><br>
         <strong>歌手名:</strong> <%= song.singer %><br>
-        <strong>キー:</strong> <%= song.key.present? ? song.key.name : '不明' %><br>
-        <strong>リスト名:</strong>
-        <%= link_to song.list.list_title, user_user_lists_path(song.list.user) %><br>
+        <strong>キー:</strong> <%= song.key.present? ? song.key.name : '未設定' %><br>
+        <strong>リスト名:</strong> <%= link_to song.list.list_title, user_user_lists_path(song.list.user) %><br>
         <strong>リストの説明:</strong> <%= song.list.description %>
+        <% if params[:song_title_2].present? %>
+          <p>2曲目の情報: <%= params[:song_title_2] %>, キー: <%= Key.find_by(id: params[:key_id_2])&.name || '未設定' %></p>
+        <% end %>
       </li>
     <% end %>
   </ul>

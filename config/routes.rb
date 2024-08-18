@@ -30,6 +30,6 @@ Rails.application.routes.draw do
 
   resources :direct_messages, only: [:new, :create, :index, :show]
 
-  # 検索機能
-  get 'search', to: 'songs#search'
+  # 検索機能のルート設定
+  get 'search', to: 'songs#search', as: :search
 end
