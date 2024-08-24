@@ -37,29 +37,32 @@ class SongsController < ApplicationController
 
   def search
     @songs = Song.all
-
+  
     # 1曲目の検索条件を適用
-    if params[:song_title].present?
-      @songs = @songs.where('song_title LIKE ?', "%#{params[:song_title]}%")
+    @songs = @songs.where('song_title LIKE ?', "%#{params[:song_title]}%") if params[:song_title].present?
+    @songs = @songs.where('reading LIKE ?', "%#{params[:reading]}%") if params[:reading].present?
+    @songs = @songs.where('singer LIKE ?', "%#{params[:singer]}%") if params[:singer].present?
+    @songs = @songs.where(key_id: params[:key_id]) if params[:key_id].present? && params[:key_id] != ""
+  
+    Rails.logger.debug("検索条件: #{params.inspect}")
+  
+    # 2曲目の情報を取得
+    @songs_with_second_song = @songs.map do |song|
+      second_song_query = Song.where(list_id: song.list_id)
+                              .where('song_title LIKE ?', "%#{params[:song_title_2]}%") if params[:song_title_2].present?
+                              .where('reading LIKE ?', "%#{params[:reading_2]}%") if params[:reading_2].present?
+                              .where('singer LIKE ?', "%#{params[:singer_2]}%") if params[:singer_2].present?
+                              .where('key_id = ?', params[:key_id_2]) if params[:key_id_2].present? && params[:key_id_2] != ""
+                              .first
+  
+      Rails.logger.debug("2曲目の検索結果: #{second_song_query.inspect}")
+  
+      # 曲と2曲目の情報を含むハッシュを作成
+      {
+        song: song,
+        second_song: second_song_query
+      }
     end
-    if params[:reading].present?
-      @songs = @songs.where('reading LIKE ?', "%#{params[:reading]}%")
-    end
-    if params[:singer].present?
-      @songs = @songs.where('singer LIKE ?', "%#{params[:singer]}%")
-    end
-    if params[:key_id].present? && params[:key_id] != ""
-      @songs = @songs.where(key_id: params[:key_id])
-    end
-    # 2曲目の検索条件を適用
-    if params[:song_title_2].present? || params[:reading_2].present? || params[:singer_2].present? || (params[:key_id_2].present? && params[:key_id_2] != "")
-      key_condition = params[:key_id_2].present? ? "second_songs.key_id = #{params[:key_id_2]}" : '1=1'
-      @songs = @songs.where(
-        'EXISTS (SELECT 1 FROM songs second_songs WHERE second_songs.list_id = songs.list_id AND second_songs.song_title LIKE ? AND second_songs.reading LIKE ? AND second_songs.singer LIKE ? AND (' + key_condition + ' OR ? IS NULL))',
-        "%#{params[:song_title_2]}%", "%#{params[:reading_2]}%", "%#{params[:singer_2]}%", params[:key_id_2]
-      )
-    end
-    render :search
   end
 
 

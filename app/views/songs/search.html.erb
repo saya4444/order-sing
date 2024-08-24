@@ -1,21 +1,37 @@
 <!-- app/views/songs/search.html.erb -->
 <h1>検索結果</h1>
 
-<% if @songs.any? %>
-  <ul>
-    <% @songs.each do |song| %>
-      <li>
-        <strong>曲名:</strong> <%= song.song_title %><br>
-        <strong>歌手名:</strong> <%= song.singer %><br>
-        <strong>キー:</strong> <%= song.key.present? ? song.key.name : '未設定' %><br>
-        <strong>リスト名:</strong> <%= link_to song.list.list_title, user_user_lists_path(song.list.user) %><br>
-        <strong>リストの説明:</strong> <%= song.list.description %>
-        <% if params[:song_title_2].present? %>
-          <p>2曲目の情報: <%= params[:song_title_2] %>, キー: <%= Key.find_by(id: params[:key_id_2])&.name || '未設定' %></p>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+<% if @songs_with_second_song.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>曲名</th>
+        <th>歌手名</th>
+        <th>キー</th>
+        <th>リスト名</th>
+        <th>リストの説明</th>
+        <th>2曲目の曲名</th>
+        <th>2曲目の歌手名</th>
+        <th>2曲目のキー</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @songs_with_second_song.each do |entry| %>
+        <% song = entry[:song] %>
+        <% second_song = entry[:second_song] %>
+        <tr>
+          <td><%= song.song_title %></td>
+          <td><%= song.singer %></td>
+          <td><%= song.key.present? ? song.key.name : '未設定' %></td>
+          <td><%= link_to song.list.list_title, user_user_lists_path(song.list.user) %></td>
+          <td><%= song.list.description %></td>
+          <td><%= second_song&.song_title %></td>
+          <td><%= second_song&.singer %></td>
+          <td><%= second_song&.key.present? ? second_song.key.name : '未設定' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% else %>
   <p>検索結果はありません。</p>
 <% end %>
