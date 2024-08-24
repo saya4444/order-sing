@@ -4,7 +4,13 @@ class ListsController < ApplicationController
   before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
-    @lists = List.all
+    if params[:user_id].present?
+      @user = User.find(params[:user_id])
+      @lists = @user.lists
+    else
+      @lists = List.all
+    end
+
     if params[:id].present?
       @selected_list = List.find(params[:id])
       @comments = @selected_list.comments.order(created_at: :desc)

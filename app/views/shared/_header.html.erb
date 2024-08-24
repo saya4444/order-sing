@@ -1,18 +1,16 @@
-<%# CSS・・・assets/stylesheets/shared/header.css %>
+<!-- app/views/layouts/_header.html.erb -->
 <header class='header'>
   <div class='search-bar'>
     <%= link_to "ordersing", "/", class: "title" %>
-    <form class="search-form" action="#">
-    </form>
+    <!-- 検索バー -->
+    <%= render 'songs/search_form' %>
   </div>
 
-<div class='logout'>
-  <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "logout" %>
-</div>
+  <div class='logout'>
+    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "logout" %>
+  </div>
 
-<div class="setting">
-  <%= link_to '設定', edit_user_registration_path, class: 'btn btn-primary' %>
-</div>
-
-
+  <div class="setting">
+    <%= link_to '設定', edit_user_registration_path, class: 'btn btn-primary' %>
+  </div>
 </header>
