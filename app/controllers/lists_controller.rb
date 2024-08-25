@@ -1,3 +1,4 @@
+# app/controllers/lists_controller.rb
 class ListsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_list, only: [:show, :edit, :update, :destroy]
@@ -42,8 +43,10 @@ class ListsController < ApplicationController
 
   def update
     if @list.update(list_params)
+      # 更新が成功した場合、リストの一覧ページにリダイレクトする
       redirect_to lists_path, notice: 'リストが更新されました。'
     else
+      # 更新が失敗した場合、編集ページに戻る
       render :edit
     end
   end
@@ -56,8 +59,7 @@ class ListsController < ApplicationController
   private
 
   def set_list
-    @list = List.find_by(id: params[:id])
-    redirect_to lists_path, alert: 'リストが見つかりません' unless @list
+    @list = List.find(params[:id])
   end
 
   def authorize_user!
@@ -65,6 +67,6 @@ class ListsController < ApplicationController
   end
 
   def list_params
-    params.require(:list).permit(:list_title, :description)
+    params.require(:list).permit(:list_title, :description, :public)
   end
 end

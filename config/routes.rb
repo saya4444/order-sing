@@ -17,9 +17,6 @@ Rails.application.routes.draw do
   end
 
   resources :lists do
-    member do
-      get 'show' # ここでリストの詳細ページを指定
-    end
     resources :songs, only: [:create, :destroy, :update, :edit]
     resources :comments, only: [:create, :show]
   end
