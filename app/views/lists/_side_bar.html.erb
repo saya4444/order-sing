@@ -1,5 +1,4 @@
 <!-- app/views/lists/_side_bar.html.erb -->
-
 <div class="side_bar_header">
   <div class="user_info">
     <div class="user_avatar_container">
@@ -24,6 +23,10 @@
       <% current_user.lists.each do |list| %>
         <li class="list_name">
           <%= link_to list.list_title, lists_path(id: list.id) %>
+          <!-- 公開/非公開ステータスの表示 -->
+          <span class="status_label"><%= list.public ? "公開中" : "非公開" %></span>
+          <!-- 編集ボタン -->
+          <%= link_to "編集", edit_list_path(list), class: "edit_button" %>
         </li>
       <% end %>
     <% else %>
@@ -38,7 +41,7 @@
       <h4><%= @selected_list.list_title %> へのコメント</h4>
     </div>
     <div class="comment_form">
-      <%= form_with(model: [@selected_list, @selected_list.comments.build], local: true) do |form| %>
+      <%= form_with(model: [@selected_list, @selected_list.comments.build], local: false) do |form| %>
         <div class="field">
           <%= form.label :content, "コメント:" %><br>
           <%= form.text_area :content, rows: 3 %>
@@ -60,6 +63,5 @@
         <p>コメントがありません</p>
       <% end %>
     </div>
-
   </div>
 <% end %>
